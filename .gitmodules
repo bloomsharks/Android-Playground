@@ -1,0 +1,6 @@
+[submodule "libs/react-native-datepicker-android"]
+	path = libs/react-native-datepicker-android
+	url = https://github.com/bloomsharks/react-native-datepicker-android.git
+[submodule "libs/NativeModule"]
+	path = libs/NativeModule
+	url = https://github.com/bloomsharks/NativeModule.git

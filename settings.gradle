@@ -2,7 +2,7 @@ rootProject.name='BH - PlayGround'
 include ':app'
 
 include ':NativeLib'
-project(':NativeLib').projectDir = new File(settingsDir, '../NativeModule/react-native-picker-module/android')
+project(':NativeLib').projectDir = new File(settingsDir, 'libs/NativeModule/react-native-picker-module/android')
 
 include ':DatePicker'
-project(':DatePicker').projectDir = new File(settingsDir, '../react-native-datepicker-android/android')
+project(':DatePicker').projectDir = new File(settingsDir, 'libs/react-native-datepicker-android/android')

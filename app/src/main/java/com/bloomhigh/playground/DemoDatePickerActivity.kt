@@ -12,7 +12,7 @@ class DemoDatePickerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_demo_datepicker)
 
         bhDatePicker.setMaxDate("2016-03-12")
-        bhDatePicker.setMinDate("2011-03-12")
+        bhDatePicker.setMinDate("2007-03-12")
         bhDatePicker.setCurrentDate("2016-03-12")
 
         bhDatePicker.callback = object : BHDatePicker.DateSelectionCallback {

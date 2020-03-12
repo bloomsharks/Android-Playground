@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".DemoDatePickerActivity" android:label="DatePicker Demo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".DemoDatePickerActivity" android:label="DatePicker Demo">
         </activity>
         <activity android:name=".NativeActivity" android:label="Native Demo"/>
     </application>

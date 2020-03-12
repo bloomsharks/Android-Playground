@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DemoDatePickerActivity" android:label="DatePicker Demo"/>
+        <activity android:name=".NativeActivity" android:label="Native Demo"/>
     </application>
 
 </manifest>

@@ -14,5 +14,8 @@ class MainActivity : AppCompatActivity() {
         btnDatePickerDemo.setOnClickListener {
             startActivity(Intent(this, DemoDatePickerActivity::class.java))
         }
+        btnNativeDemo.setOnClickListener {
+            startActivity(Intent(this, NativeActivity::class.java))
+        }
     }
 }

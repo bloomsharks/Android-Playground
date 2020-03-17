@@ -11,9 +11,9 @@ class DemoDatePickerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo_datepicker)
 
-        bhDatePicker.setMaxDate("2016-03-12")
-        bhDatePicker.setMinDate("2007-03-12")
-        bhDatePicker.setCurrentDate("2016-03-12")
+        bhDatePicker.setMaxDate("2016-03-13")
+        bhDatePicker.setMinDate("2007-03-13")
+        bhDatePicker.setCurrentDate("2016-03-13")
 
         bhDatePicker.callback = object : BHDatePicker.DateSelectionCallback {
             override fun onDateSelected(date: String) {

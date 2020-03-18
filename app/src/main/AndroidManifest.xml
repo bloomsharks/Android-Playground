@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FilterActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,15 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DemoDatePickerActivity" android:label="DatePicker Demo">
-        </activity>
-        <activity android:name=".NativeActivity" android:label="Native Demo"/>
+        <activity
+            android:name=".DemoDatePickerActivity"
+            android:label="DatePicker Demo"></activity>
+        <activity
+            android:name=".NativeActivity"
+            android:label="Native Demo" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
-            tools:replace="android:authorities"
             android:authorities="com.bloomhigh.playground.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

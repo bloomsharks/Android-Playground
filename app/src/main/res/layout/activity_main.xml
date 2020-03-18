@@ -24,6 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Native Demo"/>
+            <Button
+                android:id="@+id/btnPhotoFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Photo Demo"/>
         </LinearLayout>
     </ScrollView>
 

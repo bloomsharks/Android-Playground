@@ -17,5 +17,8 @@ class MainActivity : AppCompatActivity() {
         btnNativeDemo.setOnClickListener {
             startActivity(Intent(this, NativeActivity::class.java))
         }
+        btnPhotoFilter.setOnClickListener {
+            startActivity(Intent(this, FilterActivity::class.java))
+        }
     }
 }

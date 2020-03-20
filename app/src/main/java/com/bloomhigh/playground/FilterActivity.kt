@@ -1,10 +1,13 @@
 package com.bloomhigh.playground
 
 import android.os.Bundle
-import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.ToxicBakery.viewpager.transforms.ABaseTransformer
+import androidx.core.view.updateLayoutParams
 import kotlinx.android.synthetic.main.activity_filter.*
+import kotlin.math.max
+import kotlin.math.min
 
 class FilterActivity : AppCompatActivity(R.layout.activity_filter) {
 
@@ -18,23 +21,38 @@ class FilterActivity : AppCompatActivity(R.layout.activity_filter) {
         val newYork =
             "@curve R(40, 40)(86, 148)(255, 255)G(0, 28)(67, 140)(142, 214)(255, 255)B(0, 100)(103, 176)(195, 174)(255, 255) @adjust hsv 0.32 0 -0.5 -0.2 0 -0.4"
 
-        viewPager.adapter = EffectsPagerAdapter(supportFragmentManager, listOf(
-            tbilisi,
-            california,
-            newYork
-        ))
-
-        viewPager.setPageTransformer(
-            true, object: ABaseTransformer() {
-
-                override fun onTransform(page: View, position: Float) {
-                    if (position <= 0) page.translationX = 0f
-                    else if (position <= 1) {
-                        page.translationX = -page.width * position
-                    }
-                }
-
-            }
+        viewPager.adapter = EffectsPagerAdapter(
+            supportFragmentManager, listOf(
+                tbilisi,
+                california,
+                newYork
+            )
         )
+
+//        viewPager.setPageTransformer(
+//            true, object : ABaseTransformer() {
+//
+//                override fun onTransform(page: View, position: Float) {
+//                    if (position <= 0) page.translationX = 0f
+//                    else if (position <= 1) {
+//                        page.translationX = (-page.width * (1 - position))
+//                    }
+//                }
+//
+//            }
+//        )
+
+        viewPager.setPageTransformer(true) { page, position ->
+            val w = if (position < 0) 0F else (-page.width * position)
+            val ww = min(1080, max(0, 1080 - (1080 + w.toInt())))
+
+            page.translationX = w
+
+            page.findViewById<ImageView>(R.id.mainImageView)
+                .updateLayoutParams<ViewGroup.LayoutParams> {
+                    println("WWW w $w $ww")
+                    width = (1080 + w.toInt())
+                }
+        }
     }
 }

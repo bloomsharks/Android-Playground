@@ -7,14 +7,14 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import org.wysaid.nativePort.CGENativeLibrary
 import java.security.MessageDigest
 
-class GPPTransformation(val filterName: String, val config: String) : BitmapTransformation() {
+class GPPTransformation(private val effect: Effect) : BitmapTransformation() {
 
     companion object {
         const val ID = "GPPTransformation"
     }
 
     override fun updateDiskCacheKey(messageDigest: MessageDigest) {
-        val key = (ID + filterName)
+        val key = (ID + effect.name)
         messageDigest.update(key.toByteArray(Key.CHARSET))
     }
 
@@ -24,7 +24,7 @@ class GPPTransformation(val filterName: String, val config: String) : BitmapTran
         outWidth: Int,
         outHeight: Int
     ): Bitmap {
-        println("GPPTransformation updateDiskCacheKey($config)")
-        return CGENativeLibrary.filterImage_MultipleEffects(toTransform, config, 1.0f)
+        println("GPPTransformation updateDiskCacheKey(${effect.config})")
+        return CGENativeLibrary.filterImage_MultipleEffects(toTransform, effect.config, 1.0f)
     }
 }

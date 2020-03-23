@@ -1,27 +1,39 @@
 package com.bloomhigh.playground
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.TextView
+import androidx.viewpager.widget.PagerAdapter
 
 class EffectsPagerAdapter(
-    fragmentManager: FragmentManager,
-    private val effects: List<String>
-) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getItem(position: Int): Fragment {
-        return EffectFragment.newInstance(getPageTitle(position).toString(), effects[position])
-    }
+    private val effects: List<Effect>
+) : PagerAdapter() {
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when(position) {
-            0 -> "Tbilisi"
-            1 -> "California"
-            else -> "New York"
-        }
+        return effects[position].name
+    }
+
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view == `object`
+    }
+
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val inflater = LayoutInflater.from(container.context)
+        val layout = inflater.inflate(R.layout.view_filter_title, container, false)
+        val v = layout.findViewById<TextView>(R.id.tvTitle)
+        v.text = getPageTitle(position)
+        container.addView(layout)
+        return layout
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        container.removeView(`object` as FrameLayout)
     }
 
     override fun getCount(): Int {
-        return 3
+        return effects.size
     }
 
 }

@@ -7,24 +7,19 @@
 
     <ImageView
         android:id="@+id/ivPlaceHolder"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/ivBefore"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/ivAfter"
-        android:scaleType="centerInside"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

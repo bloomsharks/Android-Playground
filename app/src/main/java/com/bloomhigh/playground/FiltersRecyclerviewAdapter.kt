@@ -69,7 +69,7 @@ class FiltersRecyclerviewAdapter : RecyclerView.Adapter<FiltersRecyclerviewAdapt
 
         holder.name.text = effect.name
         Glide.with(holder.itemView)
-            .load(R.drawable.lite)
+            .load(R.drawable.photo)
             .transform(
                 RoundedCorners(10),
                 GPPTransformation(effect)

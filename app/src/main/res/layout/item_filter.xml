@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/lite" />
+                tools:src="@drawable/photo" />
 
             <TextView
                 android:id="@+id/name"

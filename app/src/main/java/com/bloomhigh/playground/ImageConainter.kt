@@ -1,11 +1,13 @@
 package com.bloomhigh.playground
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.drawable.ClipDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import com.bumptech.glide.Glide
@@ -17,22 +19,18 @@ class ImageConainter @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    var screenWidth: Int = 0
     var screenHeight: Int = 0
 
     init {
-        screenWidth = context.resources.displayMetrics.widthPixels
         screenHeight = context.resources.displayMetrics.heightPixels
         LayoutInflater.from(context).inflate(R.layout.view_image_conainer, this)
-
-        postDelayed({ load() }, 100)
     }
 
     private fun loadClipDrawable(effect: Effect) {
         println("PRKK loadClipDrawable ${effect.name}")
         Glide.with(this)
             .asDrawable()
-            .load(R.drawable.lite)
+            .load(R.drawable.photo)
             .transform(GPPTransformation(effect))
             .dontAnimate()
             .into(object : CustomTarget<Drawable>(ivBefore.width, ivBefore.height) {
@@ -67,7 +65,8 @@ class ImageConainter @JvmOverloads constructor(
     }
 
     private fun applyEffect(index: Int) {
-//        loadClipDrawable(Effects[index])
+        if (index > 0)
+            loadClipDrawable(Effects[index - 1])
         callback?.onEffectSelected(index)
 
         tvTitle.text = Effects[index].name
@@ -82,10 +81,10 @@ class ImageConainter @JvmOverloads constructor(
         println("PKKKR loading effect ${Effects[index].name}")
         Glide.with(this)
             .asDrawable()
-            .load(R.drawable.lite)
+            .load(R.drawable.photo)
             .transform(GPPTransformation(Effects[index]))
             .dontAnimate()
-            .into(object: CustomTarget<Drawable>(ivBefore.width, ivBefore.height) {
+            .into(object : CustomTarget<Drawable>(ivBefore.width, ivBefore.height) {
                 override fun onLoadCleared(placeholder: Drawable?) {
                 }
 
@@ -100,23 +99,47 @@ class ImageConainter @JvmOverloads constructor(
             })
     }
 
-    private fun load() {
-        viewPager.adapter = EffectsPagerAdapter(Effects)
-        viewPager.setPageTransformer(false) { page, position ->
-            if (position in 0.0F..1.0F) {
-                val lvl = 10_000 * position
-                (ivAfter.drawable as? ClipDrawable)?.level = lvl.toInt()
+    fun setSelectedEffect(effectIndex: Int) {
+        applyEffect(effectIndex)
+    }
 
-                if (position == 1.0F || position == 0.0F) {
-                    println("PRKK settle at $position")
-                    applyEffect(viewPager.currentItem)
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val d = (ivAfter.drawable as? ClipDrawable)
+        if (d != null) {
+            return when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    true
                 }
-
+                MotionEvent.ACTION_MOVE -> {
+                    val x = event.getX(0)
+                    val lvl = (10_000 / (ivBefore.width / x)).toInt()
+                    d.level = lvl
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    val limit = 3500
+                    println("UPPP at ${d.level} limit $limit")
+                    if (d.level <= 5_000) {
+                        animateSnap(d.level, 0, d)
+                    } else {
+                        animateSnap(d.level, 10_000, d)
+                    }
+                    true
+                }
+                else -> super.onTouchEvent(event)
             }
+        } else {
+            return super.onTouchEvent(event)
         }
     }
 
-    fun setSelectedEffect(effectIndex: Int) {
-        applyEffect(effectIndex)
+    private fun animateSnap(from: Int, to: Int,d: ClipDrawable) {
+        ValueAnimator.ofInt(from, to).apply {
+            setDuration(300)
+            addUpdateListener {
+                d.level = it.animatedValue as Int
+            }
+            start()
+        }
     }
 }

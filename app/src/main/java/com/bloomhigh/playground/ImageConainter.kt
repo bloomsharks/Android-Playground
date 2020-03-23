@@ -8,7 +8,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -53,51 +52,52 @@ class ImageConainter @JvmOverloads constructor(
             })
     }
 
-    private var currentPlaceHolderIndex = -1
+    private var callback: OnEffectSelectedListener? = null
 
-    private fun loadPlaceholder(index: Int) {
-        if (index > 0) {
-            val modIndex = index - 1
-            if (modIndex == currentPlaceHolderIndex) {
-                return
-            }
-            println("PKKKR loading placeholder -1 ${Effects[modIndex].name}")
-            Glide.with(this)
-                .load(R.drawable.lite)
-                .transform(GPPTransformation(Effects[modIndex]))
-                .dontAnimate()
-                .into(ivPlaceHolder)
-            currentPlaceHolderIndex = modIndex
-        } else {
-//            if (index == currentPlaceHolderIndex) {
-//                return
-//            }
-//            println("PKKKR loading placeholder ${Effects[index].name}")
-//            Glide.with(this)
-//                .load(R.drawable.lite)
-//                .into(ivPlaceHolder)
-//            currentPlaceHolderIndex = index
-        }
+    fun setOnEffectSelectedListener(listener: OnEffectSelectedListener) {
+        callback = listener
     }
 
-    private var currentEffectIndex = -1
+    private var hideTitleRunnable = {
+        tvTitle.visibility = View.INVISIBLE
+    }
+
+    private var showtitleRunnable = {
+        tvTitle.visibility = View.VISIBLE
+    }
 
     private fun applyEffect(index: Int) {
-        if (index == currentEffectIndex) {
-            return
-        }
-
 //        loadClipDrawable(Effects[index])
+        callback?.onEffectSelected(index)
 
-        loadPlaceholder(index)
+        tvTitle.text = Effects[index].name
+
+        tvTitle.removeCallbacks(showtitleRunnable)
+        tvTitle.removeCallbacks(hideTitleRunnable)
+
+
+        tvTitle.postDelayed(showtitleRunnable, 300)
+        tvTitle.postDelayed(hideTitleRunnable, 1000)
 
         println("PKKKR loading effect ${Effects[index].name}")
         Glide.with(this)
+            .asDrawable()
             .load(R.drawable.lite)
             .transform(GPPTransformation(Effects[index]))
             .dontAnimate()
-            .into(ivBefore)
-        currentEffectIndex = index
+            .into(object: CustomTarget<Drawable>(ivBefore.width, ivBefore.height) {
+                override fun onLoadCleared(placeholder: Drawable?) {
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable>?
+                ) {
+                    ivBefore.setImageDrawable(resource)
+                    ivPlaceHolder.setImageDrawable(resource)
+                }
+
+            })
     }
 
     private fun load() {
@@ -110,12 +110,6 @@ class ImageConainter @JvmOverloads constructor(
                 if (position == 1.0F || position == 0.0F) {
                     println("PRKK settle at $position")
                     applyEffect(viewPager.currentItem)
-                    page.findViewById<TextView>(R.id.tvTitle).apply {
-                        visibility = View.VISIBLE
-                        postDelayed({
-                            visibility = View.GONE
-                        }, 500)
-                    }
                 }
 
             }
@@ -125,21 +119,4 @@ class ImageConainter @JvmOverloads constructor(
     fun setSelectedEffect(effectIndex: Int) {
         applyEffect(effectIndex)
     }
-
-//    override fun onTouchEvent(event: MotionEvent): Boolean {
-//        return when(event.action) {
-//            MotionEvent.ACTION_DOWN -> {
-//                println("down ${event.getX(0)}")
-//                true
-//            }
-//            MotionEvent.ACTION_MOVE -> {
-//                val x = event.getX(0)
-//                val lvl = (10_000 / (screenWidth / x)).toInt()
-//                println("move $screenWidth $x $lvl")
-//                clipDrawable?.level = lvl
-//                true
-//            }
-//            else ->super.onTouchEvent(event)
-//        }
-//    }
 }

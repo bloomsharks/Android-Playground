@@ -13,11 +13,17 @@ class FilterActivity : AppCompatActivity(R.layout.activity_filter) {
         rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val filtersRecyclerviewAdapter = FiltersRecyclerviewAdapter()
         rv.adapter = filtersRecyclerviewAdapter.apply {
-            setOnEffectSelectedListener(object : FiltersRecyclerviewAdapter.OnEffectSelectedListener {
+            setOnEffectSelectedListener(object : OnEffectSelectedListener {
                 override fun onEffectSelected(effectIndex: Int) {
                     imageContainer.setSelectedEffect(effectIndex)
                 }
             })
         }
+
+        imageContainer.setOnEffectSelectedListener(object : OnEffectSelectedListener {
+            override fun onEffectSelected(effectIndex: Int) {
+                filtersRecyclerviewAdapter.selectEffect(effectIndex)
+            }
+        })
     }
 }

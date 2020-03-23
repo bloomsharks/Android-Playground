@@ -1,10 +1,7 @@
 package com.bloomhigh.playground
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 
 class EffectsPagerAdapter(
@@ -20,16 +17,13 @@ class EffectsPagerAdapter(
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val inflater = LayoutInflater.from(container.context)
-        val layout = inflater.inflate(R.layout.view_filter_title, container, false)
-        val v = layout.findViewById<TextView>(R.id.tvTitle)
-        v.text = getPageTitle(position)
-        container.addView(layout)
-        return layout
+        val v = View(container.context)
+        container.addView(v)
+        return v
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as FrameLayout)
+        container.removeView(`object` as View)
     }
 
     override fun getCount(): Int {

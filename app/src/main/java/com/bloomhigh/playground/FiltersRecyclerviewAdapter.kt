@@ -19,14 +19,10 @@ class FiltersRecyclerviewAdapter : RecyclerView.Adapter<FiltersRecyclerviewAdapt
 
     private var selectedEffectIndex = 0
 
-    private fun selectEffect(index: Int) {
+    fun selectEffect(index: Int) {
         notifyItemChanged(selectedEffectIndex, selectedEffectIndex)
         selectedEffectIndex = index
         notifyItemChanged(selectedEffectIndex, selectedEffectIndex)
-    }
-
-    interface OnEffectSelectedListener {
-        fun onEffectSelected(effectIndex: Int)
     }
 
     private var callback: OnEffectSelectedListener? = null

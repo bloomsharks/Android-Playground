@@ -6,19 +6,19 @@
 
     <ImageView
         android:id="@+id/ivPlaceHolder"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/ivBefore"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/ivAfter"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

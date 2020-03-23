@@ -51,4 +51,5 @@ dependencies {
     implementation project(':DatePicker')
     implementation project(':NativeLib')
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

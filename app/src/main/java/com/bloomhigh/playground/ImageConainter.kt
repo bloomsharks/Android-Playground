@@ -122,6 +122,10 @@ class ImageConainter @JvmOverloads constructor(
         }
     }
 
+    fun setSelectedEffect(effectIndex: Int) {
+        applyEffect(effectIndex)
+    }
+
 //    override fun onTouchEvent(event: MotionEvent): Boolean {
 //        return when(event.action) {
 //            MotionEvent.ACTION_DOWN -> {

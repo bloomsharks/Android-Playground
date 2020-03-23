@@ -77,6 +77,7 @@
 
 
     <com.bloomhigh.playground.ImageConainter
+        android:id="@+id/imageContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomPanel"

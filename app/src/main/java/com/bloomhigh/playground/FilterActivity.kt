@@ -11,6 +11,13 @@ class FilterActivity : AppCompatActivity(R.layout.activity_filter) {
         super.onCreate(savedInstanceState)
 
         rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rv.adapter = FiltersRecyclerviewAdapter()
+        val filtersRecyclerviewAdapter = FiltersRecyclerviewAdapter()
+        rv.adapter = filtersRecyclerviewAdapter.apply {
+            setOnEffectSelectedListener(object : FiltersRecyclerviewAdapter.OnEffectSelectedListener {
+                override fun onEffectSelected(effectIndex: Int) {
+                    imageContainer.setSelectedEffect(effectIndex)
+                }
+            })
+        }
     }
 }

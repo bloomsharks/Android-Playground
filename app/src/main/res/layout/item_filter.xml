@@ -7,6 +7,8 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/indicator"
+        android:visibility="invisible"
         android:background="#497cfa"
         android:layout_gravity="center_horizontal"
         android:layout_height="2dp"

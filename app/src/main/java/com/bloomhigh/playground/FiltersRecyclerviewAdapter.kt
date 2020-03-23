@@ -14,6 +14,25 @@ class FiltersRecyclerviewAdapter : RecyclerView.Adapter<FiltersRecyclerviewAdapt
     class FilerVH(view: View): RecyclerView.ViewHolder(view) {
         val image = view.findViewById<ImageView>(R.id.image)
         val name = view.findViewById<TextView>(R.id.name)
+        val indicator = view.findViewById<View>(R.id.indicator)
+    }
+
+    private var selectedEffectIndex = 0
+
+    private fun selectEffect(index: Int) {
+        notifyItemChanged(selectedEffectIndex, selectedEffectIndex)
+        selectedEffectIndex = index
+        notifyItemChanged(selectedEffectIndex, selectedEffectIndex)
+    }
+
+    interface OnEffectSelectedListener {
+        fun onEffectSelected(effectIndex: Int)
+    }
+
+    private var callback: OnEffectSelectedListener? = null
+
+    fun setOnEffectSelectedListener(listener: OnEffectSelectedListener) {
+        callback = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilerVH {
@@ -26,8 +45,32 @@ class FiltersRecyclerviewAdapter : RecyclerView.Adapter<FiltersRecyclerviewAdapt
         return Effects.size
     }
 
+    override fun onBindViewHolder(holder: FilerVH, position: Int, payloads: MutableList<Any>) {
+        if(payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            if(selectedEffectIndex == position) {
+                holder.indicator.visibility = View.VISIBLE
+            } else {
+                holder.indicator.visibility = View.INVISIBLE
+            }
+        }
+    }
+
     override fun onBindViewHolder(holder: FilerVH, position: Int) {
         val effect = Effects[position]
+
+        holder.itemView.setOnClickListener {
+            callback?.onEffectSelected(position)
+            selectEffect(position)
+        }
+
+        if(selectedEffectIndex == position) {
+            holder.indicator.visibility = View.VISIBLE
+        } else {
+            holder.indicator.visibility = View.INVISIBLE
+        }
+
         holder.name.text = effect.name
         Glide.with(holder.itemView)
             .load(R.drawable.lite)

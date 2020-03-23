@@ -34,11 +34,11 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:src="@drawable/ic_add_text"
-                android:background="#FFF"
-                android:stateListAnimator="@null"
                 android:layout_width="44dp"
-                android:layout_height="44dp"/>
+                android:layout_height="44dp"
+                android:background="#FFF"
+                android:src="@drawable/ic_add_text"
+                android:stateListAnimator="@null" />
 
             <ImageButton
                 android:layout_width="51dp"
@@ -48,11 +48,11 @@
                 android:stateListAnimator="@null" />
 
             <ImageButton
-                android:src="@drawable/ic_add_sticker"
-                android:background="#FFF"
-                android:stateListAnimator="@null"
                 android:layout_width="44dp"
-                android:layout_height="44dp"/>
+                android:layout_height="44dp"
+                android:background="#FFF"
+                android:src="@drawable/ic_add_sticker"
+                android:stateListAnimator="@null" />
 
             <Button
                 android:id="@+id/btnSave"
@@ -79,8 +79,70 @@
     <com.bloomhigh.playground.ImageConainter
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomPanel"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomPanel"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBrightness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/proxima_nova_semibold"
+            android:lineSpacingExtra="3sp"
+            android:text="Brightness"
+            android:textColor="#1b252e"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv" />
+
+        <SeekBar
+            android:id="@+id/sbBrightness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:progress="50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBrightness" />
+
+        <TextView
+            android:id="@+id/tvWarmth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/proxima_nova_semibold"
+            android:lineSpacingExtra="3sp"
+            android:text="Warmth"
+            android:textColor="#1b252e"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sbBrightness" />
+
+        <SeekBar
+            android:id="@+id/sbWarmth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:progress="62"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWarmth" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

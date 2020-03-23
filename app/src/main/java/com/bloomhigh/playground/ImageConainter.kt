@@ -61,7 +61,7 @@ class ImageConainter @JvmOverloads constructor(
             if (modIndex == currentPlaceHolderIndex) {
                 return
             }
-            println("PKKKR loading placeholder ${Effects[modIndex].name}")
+            println("PKKKR loading placeholder -1 ${Effects[modIndex].name}")
             Glide.with(this)
                 .load(R.drawable.lite)
                 .transform(GPPTransformation(Effects[modIndex]))
@@ -69,16 +69,14 @@ class ImageConainter @JvmOverloads constructor(
                 .into(ivPlaceHolder)
             currentPlaceHolderIndex = modIndex
         } else {
-            if (index == currentPlaceHolderIndex) {
-                return
-            }
-            println("PKKKR loading placeholder ${Effects[index].name}")
-            Glide.with(this)
-                .load(R.drawable.lite)
-                .transform(GPPTransformation(Effects[index]))
-                .dontAnimate()
-                .into(ivPlaceHolder)
-            currentPlaceHolderIndex = index
+//            if (index == currentPlaceHolderIndex) {
+//                return
+//            }
+//            println("PKKKR loading placeholder ${Effects[index].name}")
+//            Glide.with(this)
+//                .load(R.drawable.lite)
+//                .into(ivPlaceHolder)
+//            currentPlaceHolderIndex = index
         }
     }
 
